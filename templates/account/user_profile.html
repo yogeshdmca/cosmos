@@ -1,0 +1,59 @@
+{% extends "account/base.html" %}
+
+	{% block content %}
+		<form action='{% url "user_profile" %}' method='POST'>
+			{% if user_flat_form.errors %}
+			{% for field in user_flat_form %}
+        		{% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            	{% endfor %}
+            {% endfor %}
+            {% endif %}
+			{% csrf_token %}
+			<div id='user_flat_div'>
+				<table>
+					{% for flat_field in user_flat_form %}
+					<tr>
+						<td>{{flat_field.label_tag}}</td>
+						<td>{{flat_field}}</td>
+					</tr>
+					{% endfor %}
+			</div>
+			<div id='user_profile_div'>
+					<tr>
+						<td>{{ user_profile_form.Rental_or_honour.label_tag }}</td>
+						<td>{{ user_profile_form.Rental_or_honour }}</td>
+					</tr>
+			</div>
+			<div id='user_profile_hidden_div'>
+				<table id="user_table" class="hidden">
+			 		<tr>
+						<td>{{ user_profile_form.honour_name.label_tag }}</td>
+						<td>{{ user_profile_form.honour_name }}</td>
+					</tr>
+					<tr>
+						<td>{{ user_profile_form.address.label_tag }}</td>
+						<td>{{ user_profile_form.address }}</td>
+					</tr>
+					<tr>
+						<td>{{ user_profile_form.mobile_number.label_tag }}</td>
+						<td>{{ user_profile_form.mobile_number }}</td>
+					</tr>
+				</table>
+			</div>
+			<input type="submit" value="Submit" name="">
+		</form>
+		<script type="text/javascript">
+			$('#id_Rental_or_honour').click(function() {
+        		if (!$(this).is(':checked')) {
+            		$('#user_table').attr('class','hidden');
+        		}
+       			else{
+        		$('#user_table').attr('class','none');
+        		}
+    		});
+		</script>
+	{% endblock %}
+	

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block alerts %}
+	<div class="alert alert-danger top-general-alert">
+		<span>If you <strong>can't see the logo</strong> on the top left, please reset the style on right style switcher (for upgraded theme only).</span>
+		<button type="button" class="close">&times;</button>
+	</div>
+{% endblock alerts %}
+
+{% block content %}
+<div class="col-md-12">
+	<div class="widget">
+		<div class="widget-header">
+			<h3><i class="fa fa-edit"></i> ADD NEW MEMBER<span class="label label-warning">This new member will added as your family member</span></h3>
+		</div>
+		<div class="widget-content">
+			<form class="form-horizontal label-left" role="form" action='.' method='POST'>
+			{% csrf_token %}
+				{% for login_field in user_form %}
+					<div class="form-group">
+						<label for="{{login_field.name}}" class="col-sm-5 control-label">{{login_field.label_tag}}
+						</label>
+						<div class="col-sm-7">
+							{{login_field}}
+						</div>
+					</div>
+				{% endfor %}
+				{% for field in profile_form %}
+					<div class="form-group">
+						<label for="{{field.name}}" class="col-sm-5 control-label">{{field.label_tag}}
+						</label>
+						<div class="col-sm-7">
+							{{field}}
+						</div>
+					</div>
+				{% endfor %}
+				<center>
+					<button type="submit" class='btn btn-success'><i class="fa fa-check-circle"></i> SAVE</button>
+				</center>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $('#id_username').attr('class','form-control');
+    $('#id_email').attr('class','form-control');
+    $('#id_password1').attr('class','form-control');
+    $('#id_password2').attr('class','form-control');
+    $('#id_leaving_type').attr('class',"form-control");
+    $('#id_name').attr('class','form-control');
+    $('#id_mobile').attr('class','form-control');
+    $('#id_permanent_address').attr('class','form-control');
+    $("#id_dob").attr('class','form-control');
+    $('#id_doa').attr('class','form-control');
+    $('#id_job_category').attr('class',"form-control");
+    $("#id_dob").datepicker();
+    $("#id_doa").datepicker();
+    $("#id_dob").datepicker();
+    $("#id_doa").datepicker();
+</script>
+
+{% endblock %}
+

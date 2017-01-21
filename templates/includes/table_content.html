@@ -1,0 +1,40 @@
+
+<div class="widget widget-table">
+<div class="widget-header">
+	<h3><i class="fa fa-group"></i>User Listing</h3>
+</div>	
+<div class="widget-content">
+	<div class="ColVis">
+	<a class="btn btn-default" href="{% url 'add-user'%}">Add New Member</a>
+	</div>
+	
+	<table id="ticket-table" class="table table-sorting table-hover table-bordered datatable dataTable no-footer">
+		<thead>
+			<tr>
+				<th>No.</th>
+				<th>Leaving Type</th>
+				<td>Address</td>
+				<th>Mobile</th>
+				<th>Name</th>
+				<th>DOB</th>
+				<th>DOA</th>
+				<th>Job Category</th>
+			</tr>
+		</thead>
+		{% for user in object_list %}
+		<tbody>
+			<tr>
+				<td>{{ forloop.counter }}</td>
+				<td><a href="#">{{user.name}}</a></td>
+				<td>{{user.leaving_type}}</td>
+				<td>{{user.permanent_address}}</td>
+				<td>{{user.mobile}}</td>
+				<td>{{user.dob}}</td>
+				<td>{{user.doa}}</td>
+				<td>{{user.job_category}}</td>
+			</tr>
+		</tbody>
+		{% endfor %}
+	</table>
+</div>
+</div>

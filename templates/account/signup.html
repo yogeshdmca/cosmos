@@ -1,0 +1,26 @@
+{% extends "nolayout.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div class="wrapper full-page-wrapper page-auth page-register text-center">
+		<div class="inner-page">
+			{% include 'includes/logo.html' %}
+			<h1>{% trans "Sign Up" %}</h1>
+			{% include 'includes/social_buttons.html' %}
+			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+			{% include 'includes/signup_box.html' %}
+		</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#id_username').attr('class','form-control');
+    $('#id_email').attr('class','form-control');
+    $('#id_password1').attr('class','form-control');
+    $('#id_password2').attr('class','form-control');
+  });
+</script>
+
+{% endblock %}

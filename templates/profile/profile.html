@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block main_header %}
+<div class="main-header">
+	<h2>Profile Details </h2>
+	<em>Fill your all requred information</em>
+</div>
+{% if form.errors %}
+{% block alerts %}
+	<div class="alert alert-danger top-general-alert">
+		<span> <strong>{{form.eoors}}</strong> </span>
+		<button type="button" class="close">&times;</button>
+	</div>
+{% endblock alerts %}
+{% endif %}
+
+{% endblock main_header%}
+
+{% block content %}
+<center>
+<div class="main-content">
+	<div class="row">
+		<div style="margin-left: 120px;" class="col-md-7">
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-edit"></i> Basic Input</h3></div>
+				<div class="widget-content">
+					<div class="form-horizontal">
+						
+						<form action = "." method='POST'>
+						{% csrf_token %}
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.flat_number.label}}</label>
+								<div class="col-md-10">
+									{{form.flat_number}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.leaving_type.label}}</label>
+								<div class="col-md-10">
+									{{form.leaving_type}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.name.label}}</label>
+								<div class="col-md-10">
+									{{form.name}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.mobile.label}}</label>
+								<div class="col-md-10">
+									{{form.mobile}}
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.permanent_address.label}}</label>
+								<div class="col-md-10">
+									{{form.permanent_address}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.dob.label}}</label>
+								<div class="col-md-10">
+									{{form.dob}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.doa.label}}</label>
+								<div class="col-md-10">
+									{{form.doa}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.job_category.label}}</label>
+								<div class="col-md-10">
+									{{form.job_category}}
+								</div>
+							</div>
+							<div class="form-group">
+								<div style="margin-left: 180px;" class="col-md-6">
+								<center>
+									<input type="submit" name="" value='submit' class='btn btn-primary btn-block'>
+								</center>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</center>
+
+			
+<script type="text/javascript">
+  
+    $('#id_leaving_type, #id_flat_number, #id_name, #id_mobile, #id_permanent_address, #id_dob, #id_doa, #id_job_category').attr('class','form-control');
+    $("#id_dob, #id_doa").datepicker();
+</script>
+{% endblock %}

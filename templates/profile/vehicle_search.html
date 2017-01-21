@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block main_header %}
+	<h2>Vehicle Infomation</h2>
+	<em></em>
+{% endblock main_header %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget widget-table">
+			<div class="widget-header">
+				<h3><i class="fa fa-table"></i> Search the details of Vehicles</h3>
+			</div>
+			<div class="widget-content">
+				<table id="datatable-column-filter" class="table table-sorting table-striped table-hover datatable">
+					<thead>
+						<tr>
+							<th>Flat Number</th>
+							<th>Serial Number</th>
+							<th>Vehicles Number</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% for object in object_list%}
+						<tr>
+							<td>{{object.flat}}</td>
+							<td>{{object.serial_number}}</td>
+							<td>{{object.vehicle_number}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

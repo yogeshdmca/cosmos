@@ -1,0 +1,53 @@
+{% extends "nolayout.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="wrapper full-page-wrapper page-auth page-login text-center">
+    <div class="inner-page">
+      {% include 'includes/logo.html' %}
+      <h1>{% trans "Sign Up" %}</h1>
+<canvas height="110" width="110"></canvas>
+      {% get_providers as socialaccount_providers %}
+
+      {% if socialaccount_providers %}
+        <p>{% blocktrans with site.name as site_name %}Please sign in with one
+        of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+        for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+        <div class="socialaccount_ballot">
+
+          <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </ul>
+
+          <div class="login-or">{% trans 'or' %}</div>
+
+        </div>
+
+        {% include "socialaccount/snippets/login_extra.html" %}
+
+      {% else %}
+  
+ 
+      {% endif %}
+      {% include 'includes/social_buttons.html' %}
+      {% include 'includes/login_box.html' %}
+      <div class="links">
+          <p><a href="{% url 'account_reset_password' %}">Forgot Username or Password?</a></p>
+          <p><a href="{{ signup_url }}">Create New Account</a></p>
+      </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#id_login').attr('class','form-control');
+    $('#id_password').attr('class','form-control');
+  });
+</script>
+{% endblock %}
+

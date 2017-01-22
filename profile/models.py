@@ -22,6 +22,9 @@ LEAVING_TYPE = (
 class FlatNumber(models.Model):
     block = models.CharField(max_length = 1, choices = BLOCK)
     number = models.IntegerField()
+
+    def get_block(self):
+        return dict(BLOCK).get(self.block)
     
     def __str__(self):
         return "%s-%s"%(self.block, self.number)

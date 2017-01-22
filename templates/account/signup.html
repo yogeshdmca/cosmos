@@ -10,6 +10,8 @@
 			{% include 'includes/logo.html' %}
 			<h1>{% trans "New Registration" %}</h1>
 			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+			{% include 'shared/form_errors.html' %}
 			{% include 'includes/signup_box.html' %}
 		</div>
 </div>

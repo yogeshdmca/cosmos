@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse,reverse_lazy
 from django.views import View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
@@ -28,7 +28,7 @@ class UserHomeRedirectView(RedirectView):
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
             if hasattr(self.request.user,'profile'):
-                self.url = reverse_lazy('user-dashboard')
+                self.url = reverse_lazy('user-profile')
             else:
                 self.url = reverse_lazy('create-profile')
         else:
@@ -47,12 +47,12 @@ class VehicleCreateView(CreateView):
         vehicle = form.save(commit=False)
         vehicle.user = self.request.user
         vehicle.save()
-        return vehicle
-        #return super(VehicleCreateView, self).form_valid(form)
+        #return vehicle
+        return super(VehicleCreateView, self).form_valid(form)
 
 
 class NewProfile(CreateView):
-    template_name = 'profile/profile.html'
+    template_name = 'profile/new_profile.html'
     model = UserProfile
     fields = [
         'flat_number','leaving_type','name','mobile',
@@ -71,6 +71,32 @@ class NewProfile(CreateView):
         self.new_user.save()
         return super(NewProfile, self).form_valid(form)
         
+
+class Profile(TemplateView):
+    """docstring for TemplateView"""
+    template_name = "profile/profile.html"
+        
+
+# class UpdateProfile(UpdateView):
+#     template_name = 'profile/profile.html'
+#     model = UserProfile
+#     fields = [
+#         'flat_number','leaving_type','name','mobile',
+#         'permanent_address','dob','doa','job_category',
+#     ]
+#     widgets= {
+#       'doa':forms.DateInput(attrs={'class':'datepicker'}),
+#       'dob':forms.DateInput(attrs={'class':'datepicker'}),
+#     }
+#     success_url = reverse_lazy('user-dashboard')
+    
+#     def form_valid(self, form):
+#         #import pdb;pdb.set_trace()
+#         self.new_user = form.save(commit=False)
+#         self.new_user.user = self.request.user
+#         self.new_user.save()
+#         return super(NewProfile, self).form_valid(form)
+
 
 class dashboard(LoginRequiredMixin, View):
     template_name = 'profile/deshboard.html'

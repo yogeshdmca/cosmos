@@ -1,18 +1,17 @@
+
+
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load staticfiles %}
 {% if form.errors %}
 {% block alerts %}
-	<div class="alert alert-danger top-general-alert">
-		<span> <strong>{{form.eoors}}</strong> </span>
-		<button type="button" class="close">&times;</button>
-	</div>
+	{% include 'shared/form_errors.html' %}
 {% endblock alerts %}
 {% endif %}
 
 	{% block breadcrumb_li %}
 	<li><i class="fa fa-home"></i><a href="/">Home</a></li>
-	<li><i class="fa fa-edit"></i><a href="/">Comple profile</a></li>
+	<li><i class="fa fa-edit"></i><a href="/">Profile</a></li>
 	{% endblock breadcrumb_li %}
 
 
@@ -20,88 +19,121 @@
 {% endblock main_header%}
 
 {% block content %}
-<center>
-<div class="main-content">
-	<div class="row">
-		<div class="col-md-9">
-			<div class="widget">
-				<div class="widget-header">
-					<h3><i class="fa fa-edit"></i> Profile Details</h3><em>Complte your profile to start using application</em></div>
-				<div class="widget-content">
-					<div class="form-horizontal">
-						
-						<form action = "." method='POST'>
-						{% csrf_token %}
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.flat_number.label}}</label>
-								<div class="col-md-4">
-									{{form.flat_number|add_class:"form-control"}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.leaving_type.label}}</label>
-								<div class="col-md-4">
-									{{form.leaving_type|add_class:"form-control"}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.name.label}}</label>
-								<div class="col-md-10">
-									{{form.name|add_class:"form-control"}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.mobile.label}}</label>
-								<div class="col-md-10">
-									{{form.mobile|add_class:"form-control"}}
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.permanent_address.label}}</label>
-								<div class="col-md-10">
-									{{form.permanent_address|add_class:"form-control"}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.dob.label}}</label>
+
+			<div class="content">
+				<div class="main-header">
+					<h2>Profile</h2>
+				</div>
+				<div class="main-content">
+					<!-- NAV TABS -->
+					<ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
+						<li class="active"><a href="#profile-tab" data-toggle="tab"><i class="fa fa-user"></i> Profile</a></li>
+						<li><a href="#activity-tab" data-toggle="tab"><i class="fa fa-rss"></i> Recent Activity</a></li>
+						<li><a href="#settings-tab" data-toggle="tab"><i class="fa fa-gear"></i> Settings</a></li>
+					</ul>
+					<!-- END NAV TABS -->
+					<div class="tab-content profile-page">
+						<!-- PROFILE TAB CONTENT -->
+						<div class="tab-pane profile active" id="profile-tab">
+							<div class="row">
 								<div class="col-md-3">
-									{{form.dob|add_class:"form-control"}}
+									
+								
+								</div>
+								<div class="col-md-9">
+									<div class="user-info-right">
+										<div class="basic-info">
+											<h3><i class="fa fa-square"></i> Basic Information</h3>
+											<p class="data-row">
+												<span class="data-name">Username</span>
+												<span class="data-value">{{user.profile.name}}</span>
+											</p>
+											<p class="data-row">
+												<span class="data-name">Birth Date</span>
+												<span class="data-value">
+												<a href="#" id="dob" data-type="date" data-pk="1" data-url="/profile-edit/" data-title="Select date">{{user.profile.dob}}</a>
+												</span>
+											</p>
+											<p class="data-row">
+												<span class="data-name">Date Anv.</span>
+												<span class="data-value">{{user.profile.doa}}</span>
+											</p>
+
+											<p class="data-row">
+												<span class="data-name">Last Login</span>
+												<span class="data-value">{{user.last_login}}</span>
+											</p>
+										</div>
+										<div class="contact_info">
+											<h3><i class="fa fa-square"></i> Contact Information</h3>
+											<p class="data-row">
+												<span class="data-name">Email</span>
+												<span class="data-value">{{user.email}}</span>
+											</p>
+											<p class="data-row">
+												<span class="data-name">Phone</span>
+												<span class="data-value">{{user.profile.mobile}}</span>
+											</p>
+											<p class="data-row">
+												<span class="data-name">Address</span>
+												<span class="data-value">{{user.profile.flat_number.number}} Block-{{user.profile.flat_number.get_block}} Cosmos City Sampath hills , bhicholi mardana<br />Indore, 452016</span>
+											</p>
+										</div>
+										<div class="about">
+											<h3><i class="fa fa-square"></i> About Me</h3>
+											<p>Comming soon......</p>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.doa.label}}</label>
-								<div class="col-md-3">
-									{{form.doa|add_class:"form-control"}}
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">{{form.job_category.label}}</label>
-								<div class="col-md-4">
-									{{form.job_category|add_class:"form-control"}}
-								</div>
-							</div>
-							<div class="form-group">
-								<div style="margin-left: 180px;" class="col-md-6">
-								<center>
-									<input type="submit" name="" value='submit' class='btn btn-primary btn-block'>
-								</center>
-								</div>
-							</div>
-						</form>
+						</div>
+						<!-- END PROFILE TAB CONTENT -->
+						<!-- ACTIVITY TAB CONTENT -->
+						<div class="tab-pane activity" id="activity-tab">
+							<ul class="list-unstyled activity-list">
+								<li>
+									<i class="fa fa-shopping-cart activity-icon pull-left"></i>
+									<p>
+										<a href="#">{{user.profile.name}}</a> you have updated profile!!<span class="timestamp">12 minutes ago</span>
+									</p>
+								</li>
+
+
+							</ul>
+							<p class="text-center more"><a href="#" class="btn btn-custom-primary">View more <i class="fa fa-long-arrow-right"></i></a></p>
+						</div>
+						<!-- END ACTIVITY TAB CONTENT -->
+						<!-- SETTINGS TAB CONTENT -->
+						<div class="tab-pane settings" id="settings-tab">
+							<form class="form-horizontal" role="form">
+								<fieldset>
+									<h3><i class="fa fa-square"></i> Change Password</h3>
+									<div class="form-group">
+										<label for="old-password" class="col-sm-3 control-label">Old Password</label>
+										<div class="col-sm-4">
+											<input type="password" id="old-password" name="old-password" class="form-control">
+										</div>
+									</div>
+									<hr />
+									<div class="form-group">
+										<label for="password" class="col-sm-3 control-label">New Password</label>
+										<div class="col-sm-4">
+											<input type="password" id="password" name="password" class="form-control">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="password2" class="col-sm-3 control-label">Repeat Password</label>
+										<div class="col-sm-4">
+											<input type="password" id="password2" name="password2" class="form-control">
+										</div>
+									</div>
+								</fieldset>
+							</form>
+							<p class="text-center"><a href="#" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Changes</a></p>
+						</div>
+						<!-- END SETTINGS TAB CONTENT -->
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	</center>
-{% endblock %}
 
-{% block js %}
-
-<script src="{% static 'assets/js/plugins/select2/select2.min.js' %}"></script>
-<script type="text/javascript">
-    $("#id_dob, #id_doa").datepicker();
-</script>
-
-{% endblock js %}
+{% endblock content %}

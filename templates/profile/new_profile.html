@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% if form.errors %}
+{% block alerts %}
+	{% include 'shared/form_errors.html' %}
+{% endblock alerts %}
+{% endif %}
+
+	{% block breadcrumb_li %}
+	<li><i class="fa fa-home"></i><a href="/">Home</a></li>
+	<li><i class="fa fa-edit"></i><a href="/">Comple profile</a></li>
+	{% endblock breadcrumb_li %}
+
+
+{% block main_header %}
+{% endblock main_header%}
+
+{% block content %}
+<center>
+<div class="main-content">
+	<div class="row">
+		<div class="col-md-9">
+			<div class="widget">
+				<div class="widget-header">
+					<h3><i class="fa fa-edit"></i> Profile Details</h3><em>Complte your profile to start using application</em></div>
+				<div class="widget-content">
+					<div class="form-horizontal">
+						
+						<form action = "." method='POST'>
+						{% csrf_token %}
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.flat_number.label}}</label>
+								<div class="col-md-4">
+									{{form.flat_number|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.leaving_type.label}}</label>
+								<div class="col-md-4">
+									{{form.leaving_type|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.name.label}}</label>
+								<div class="col-md-10">
+									{{form.name|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.mobile.label}}</label>
+								<div class="col-md-10">
+									{{form.mobile|add_class:"form-control"}}
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.permanent_address.label}}</label>
+								<div class="col-md-10">
+									{{form.permanent_address|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.dob.label}}</label>
+								<div class="col-md-3">
+									{{form.dob|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.doa.label}}</label>
+								<div class="col-md-3">
+									{{form.doa|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">{{form.job_category.label}}</label>
+								<div class="col-md-4">
+									{{form.job_category|add_class:"form-control"}}
+								</div>
+							</div>
+							<div class="form-group">
+								<div style="margin-left: 180px;" class="col-md-6">
+								<center>
+									<input type="submit" name="" value='submit' class='btn btn-primary btn-block'>
+								</center>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</center>
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'assets/js/plugins/select2/select2.min.js' %}"></script>
+<script type="text/javascript">
+    $("#id_dob, #id_doa").datepicker();
+</script>
+
+{% endblock js %}

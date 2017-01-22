@@ -3,9 +3,9 @@
 <div class="sidebar-scroll">
 	<nav class="main-nav">
 	<ul class="main-menu">
-		<li class="active"><a href="#"><i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</a></li>
+		<li class="active"><a href="{% url 'user-dashboard' %}"><i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</a></li>
 
-		<li><a href=""><i class="fa fa-edit"></i><span class="text">Profile</span></a></li>
+		<li><a href="{% url 'user-profile' %}"><i class="fa fa-edit"></i><span class="text">Profile</span></a></li>
 
 		<li><a href="{% url 'users-listing' %}"><i class="fa fa-tasks"></i><span class="text">See Users </span></a></li>
 

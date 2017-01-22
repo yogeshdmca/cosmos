@@ -25,7 +25,7 @@ SECRET_KEY = ')e0p&d@6s0uoqm5!7d-1!!q!6h!dp5ys7*7rap(7b8l4pcike7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -125,6 +125,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'collectd_static')
 
 
 AUTHENTICATION_BACKENDS = (
@@ -148,7 +149,18 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = None
 
 from django.urls import reverse_lazy
-#ACCOUNT_LOGIN_REDIRECT_URL = reverse_lazy('create-profile')
 
 LOGIN_REDIRECT_URL = reverse_lazy('home-redirect')
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cosmos',
+        'USER': 'cosmos',
+        'PASSWORD': 'cosmos@123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}

@@ -44,10 +44,7 @@
 
 	<div id="main-content-wrapper" class="content-wrapper ">
 		{% block alerts %}
-			<div class="alert alert-danger top-general-alert">
-				<span>If you <strong>can't see the logo</strong> on the top left, please reset the style on right style switcher (for upgraded theme only).</span>
-				<button type="button" class="close">&times;</button>
-			</div>
+		
 		{% endblock alerts %}
 		
 		{% block content_header %}
@@ -84,6 +81,7 @@
 		</div>
 	</div>
 		{% include 'includes/scripts.html' %}
+		{% block js %}
+		{% endblock js%}
 </body>
-<!-- Mirrored from demo.thedevelovers.com/dashboard/kingadmin-v1.6.1/ by HTTrack Website Copier/3.x [XR&CO'2013], Thu, 12 Jan 2017 14:37:09 GMT -->
 </html>

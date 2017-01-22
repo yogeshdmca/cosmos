@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import UserProfile, FlatNumber, VehicleInfomation
+from .models import UserProfile, FlatNumber, VehicleInfomation, JobCategory
 from django.contrib import admin 
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -29,3 +29,4 @@ admin.site.unregister(User)
 admin.site.register(User, UserProfileAdmin)
 admin.site.register(FlatNumber)
 admin.site.register(VehicleInfomation)
+admin.site.register(JobCategory)

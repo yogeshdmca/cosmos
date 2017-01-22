@@ -9,8 +9,7 @@
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
       {% include 'includes/logo.html' %}
-      <h1>{% trans "Sign Up" %}</h1>
-<canvas height="110" width="110"></canvas>
+      <h1>{% trans "Login" %}</h1>
       {% get_providers as socialaccount_providers %}
 
       {% if socialaccount_providers %}
@@ -30,11 +29,7 @@
 
         {% include "socialaccount/snippets/login_extra.html" %}
 
-      {% else %}
-  
- 
       {% endif %}
-      {% include 'includes/social_buttons.html' %}
       {% include 'includes/login_box.html' %}
       <div class="links">
           <p><a href="{% url 'account_reset_password' %}">Forgot Username or Password?</a></p>

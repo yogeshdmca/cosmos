@@ -1,17 +1,35 @@
 <div class="top-bar navbar-fixed-top">
 <div class="container">
+	<div class="clearfix">
+		<a href="#" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
+		<!-- logo -->
+		<div class="pull-left left logo">
+			<h1 class="sr-only">Cosmos City Group</h1>
+		</div>
+		<!-- end logo -->
+		<div class="pull-right right">
+			<div class="top-bar-right">
+				<button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-user"></i> {{request.user.profile}}</button>
+				<!-- <button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa fa-volume-up"></i></button> -->
+			</div>
+			<!-- end top-bar-right -->
+		</div>
+	</div>
+</div>
+<!-- /container -->
+</div>
+
+
+<!-- <div class="top-bar navbar-fixed-top">
+<div class="container">
 <div class="clearfix">
 	<a href="#" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
-	<!-- logo -->
 	<div class="pull-left left logo">
 		<a href="#">
-		<!-- <img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard" /></a> -->
-		<h1 class="sr-only">KingAdmin Admin Dashboard</h1>
+		</a>
+		<h1 class="sr-only">Cosmos City Group</h1>
 	</div>
-	<!-- end logo -->
 	<div class="pull-right right">
-		<!-- end search box -->
-		<!-- top-bar-right -->
 		<div class="top-bar-right">
 			<a href="{% url 'account_logout' %}"><button type="button" id="start-tour" class="btn btn-link">Logout</button></a>
 
@@ -44,11 +62,11 @@
 					</ul>
 				</div>
 			</div>
-			<!-- end logged user and the menu -->
+			
 		</div>
-		<!-- end top-bar-right -->
+		
 	</div>
 </div>
 </div>
-<!-- /container -->
 </div>
+ -->

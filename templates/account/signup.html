@@ -2,14 +2,13 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "New Registration" %}{% endblock %}
 
 {% block content %}
 <div class="wrapper full-page-wrapper page-auth page-register text-center">
 		<div class="inner-page">
 			{% include 'includes/logo.html' %}
-			<h1>{% trans "Sign Up" %}</h1>
-			{% include 'includes/social_buttons.html' %}
+			<h1>{% trans "New Registration" %}</h1>
 			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 			{% include 'includes/signup_box.html' %}
 		</div>

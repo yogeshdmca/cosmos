@@ -15851,11 +15851,11 @@ body.sidebar-float .content-wrapper {
   border-bottom-color: lightgray;
   background-color: #eeeeee;
 }
-@media screen and (max-width: 480px) {
+/*@media screen and (max-width: 480px) {
   .widget .widget-header {
     height: 100%;
   }
-}
+}*/
 .widget .widget-header h3 {
   display: inline-block;
   vertical-align: middle;

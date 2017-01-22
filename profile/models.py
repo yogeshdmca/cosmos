@@ -12,8 +12,9 @@ BLOCK = (
     )
 
 LEAVING_TYPE = (
-        ('own', "My Own Home"),
-        ('rent', "I am Leaving here rented"),
+        ('own', "Home owner"),
+        ('faimily', "My Faimily member"),
+        ('rent', "rented"),
         ('pg', "I am Leaving here paying guest"),
     )
 
@@ -23,7 +24,7 @@ class FlatNumber(models.Model):
     number = models.IntegerField()
     
     def __str__(self):
-        return str(self.number)
+        return "%s-%s"%(self.block, self.number)
 
 class JobCategory(models.Model):
     name = models.CharField("Job Category", max_length = 200)
@@ -33,11 +34,9 @@ class JobCategory(models.Model):
 
 
 class UserProfile(models.Model):
-    flat_number = models.ForeignKey(FlatNumber, on_delete = models.CASCADE,
-        related_name = 'flates')
-    user_profile = models.ForeignKey('self', default=None)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-        on_delete = models.CASCADE, related_name = 'profile')
+    flat_number = models.ForeignKey(FlatNumber,related_name = 'profiles')
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='chields')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name = 'profile')
     leaving_type = models.CharField(max_length = 40, choices = LEAVING_TYPE)
     name = models.CharField("Full Name", max_length = 200)
     mobile = models.CharField("Mobile Number", max_length = 15)
@@ -54,6 +53,8 @@ class VehicleInfomation(models.Model):
     flat = models.ForeignKey(FlatNumber, on_delete = models.CASCADE, related_name = 'vehicles')
     serial_number = models.CharField(max_length = 30)
     vehicle_number = models.CharField(max_length = 20)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='chields')
+    amount = models.FloatField("Amount collected", default=0.0)
     
     def __str__(self):
         return self.vehicle_number

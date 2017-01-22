@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'profile',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -145,4 +146,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_EMAIL_VERIFICATION = None
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+from django.urls import reverse_lazy
+#ACCOUNT_LOGIN_REDIRECT_URL = reverse_lazy('create-profile')
+
+LOGIN_REDIRECT_URL = reverse_lazy('home-redirect')
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'

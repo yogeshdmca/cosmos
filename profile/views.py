@@ -35,6 +35,22 @@ class UserHomeRedirectView(RedirectView):
             self.url = reverse_lazy('account_login')
         return super(UserHomeRedirectView, self).get(*args, **kwargs)
 
+
+
+class VehicleCreateView(CreateView):
+    template_name = 'profile/vehicle_create.html'
+    model = VehicleInfomation
+    fields = ['flat','serial_number','vehicle_number','amount']
+    success_url = reverse_lazy('vehicle-search')
+    def form_valid(self, form):
+        #import pdb;pdb.set_trace()
+        vehicle = form.save(commit=False)
+        vehicle.user = self.request.user
+        vehicle.save()
+        return vehicle
+        #return super(VehicleCreateView, self).form_valid(form)
+
+
 class NewProfile(CreateView):
     template_name = 'profile/profile.html'
     model = UserProfile

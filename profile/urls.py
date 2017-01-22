@@ -10,6 +10,7 @@ urlpatterns=[
     url(r'^users/$', ShowUsers.as_view(), name='users-listing'),
     url(r'^add_user/$', AddUser.as_view(), name='add-user'),
     url(r'^vehicle-search/$', VehicleInfomationView.as_view(),name='vehicle-search'),
+    url(r'^vehicle-create/$', VehicleCreateView.as_view(),name='vehicle-create'),
     #url(r'^search/info/$', ajax.ajax_search_by, name='vehicle-search-ajax'),
     
 ]

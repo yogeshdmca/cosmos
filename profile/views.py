@@ -29,7 +29,7 @@ class UserHomeRedirectView(RedirectView):
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
             if hasattr(self.request.user,'profile'):
-                self.url = reverse_lazy('user-profile')
+                self.url = reverse_lazy('user-dashboard')
             else:
                 self.url = reverse_lazy('create-profile')
         else:
@@ -82,9 +82,11 @@ class dashboard(LoginRequiredMixin, View):
     template_name = 'profile/deshboard.html'
     def get(self, request, *args, **kwargs):
         user = request.user.profile
-        birthdays = UserProfile.objects.filter(dob=date.today())
-        upcomming_bdays = UserProfile.objects.filter(dob__gt=date.today(),dob__lte=date.today()+timedelta(days=5))
-        anniversaries = UserProfile.objects.filter(doa=date.today())
+        month = date.today().month
+        day = date.today().day
+        birthdays = UserProfile.objects.filter(dob__month=month,dob__day=day)
+        upcomming_bdays = UserProfile.objects.filter(dob__month=month,dob__day__in=range(day+1,day+5))
+        anniversaries = UserProfile.objects.filter(doa__month=month,doa__day=day)
 
         ctx = {
             'birthdays':birthdays,

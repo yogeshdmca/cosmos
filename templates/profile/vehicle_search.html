@@ -16,12 +16,13 @@
 				<div class="ColVis">
 					<a class="btn btn-default" href="{% url 'vehicle-create'%}">Add New</a>
 					</div>
-				<table id="datatable-column-filter" class="table table-sorting table-striped table-hover datatable">
+				<table id="ticket-table" class="table table-sorting table-striped table-hover datatable">
 					<thead>
 						<tr>
 							<th>Flat Number</th>
 							<th>Serial Number</th>
 							<th>Vehicles Number</th>
+							<th>Flat Members</th>
 						</tr>
 					</thead>
 
@@ -31,6 +32,8 @@
 							<td>{{object.flat}}</td>
 							<td>{{object.serial_number}}</td>
 							<td>{{object.vehicle_number}}</td>
+							<td>{{object.get_flat_vehicle_names}}</td>
+							
 						</tr>
 						{% endfor %}
 					</tbody>

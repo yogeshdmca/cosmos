@@ -1,3 +1,4 @@
+from datetime import datetime, date , timedelta
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse,reverse_lazy
@@ -75,38 +76,26 @@ class NewProfile(CreateView):
 class Profile(TemplateView):
     """docstring for TemplateView"""
     template_name = "profile/profile.html"
-        
-
-# class UpdateProfile(UpdateView):
-#     template_name = 'profile/profile.html'
-#     model = UserProfile
-#     fields = [
-#         'flat_number','leaving_type','name','mobile',
-#         'permanent_address','dob','doa','job_category',
-#     ]
-#     widgets= {
-#       'doa':forms.DateInput(attrs={'class':'datepicker'}),
-#       'dob':forms.DateInput(attrs={'class':'datepicker'}),
-#     }
-#     success_url = reverse_lazy('user-dashboard')
-    
-#     def form_valid(self, form):
-#         #import pdb;pdb.set_trace()
-#         self.new_user = form.save(commit=False)
-#         self.new_user.user = self.request.user
-#         self.new_user.save()
-#         return super(NewProfile, self).form_valid(form)
 
 
 class dashboard(LoginRequiredMixin, View):
     template_name = 'profile/deshboard.html'
     def get(self, request, *args, **kwargs):
-        user = request.user
-        return render(request, self.template_name,{})
+        user = request.user.profile
+        birthdays = UserProfile.objects.filter(dob=date.today())
+        upcomming_bdays = UserProfile.objects.filter(dob__gt=date.today(),dob__lte=date.today()+timedelta(days=5))
+        anniversaries = UserProfile.objects.filter(doa=date.today())
 
+        ctx = {
+            'birthdays':birthdays,
+            'upcomming_bdays':upcomming_bdays,
+            'anniversaries':anniversaries,
 
-class ShowUsers(ListView):
-    template_name = 'profile/show_users.html'
+        }
+        return render(request, self.template_name,ctx)
+
+class UserLsiting(ListView):
+    template_name = 'profile/users_listing.html'
     model = UserProfile
     
 

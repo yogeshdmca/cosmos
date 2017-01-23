@@ -23,8 +23,12 @@ class FlatNumber(models.Model):
     block = models.CharField(max_length = 1, choices = BLOCK)
     number = models.IntegerField()
 
+    @property
     def get_block(self):
         return dict(BLOCK).get(self.block)
+
+    def get_flat_number(self):
+        return "%s-%s"%(self.get_block, self.number)
     
     def __str__(self):
         return "%s-%s"%(self.block, self.number)
@@ -51,6 +55,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
 
+    def get_vehicle_information(self):
+        return self.flat_number.vehicles.all()
+
 
 class VehicleInfomation(models.Model):
     flat = models.ForeignKey(FlatNumber, on_delete = models.CASCADE, related_name = 'vehicles')
@@ -58,6 +65,16 @@ class VehicleInfomation(models.Model):
     vehicle_number = models.CharField(max_length = 20)
     added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='chields')
     amount = models.FloatField("Amount collected", default=0.0)
+
+    def get_flat_vehicle_names(self):
+        return ", ".join([name.name for name in self.flat.profiles.all()])
     
     def __str__(self):
         return self.vehicle_number
+
+    @property
+    def get_type(self):
+        if self.serial_number.startswith('c'):
+            return 'car'
+        else:
+            return 'bike'

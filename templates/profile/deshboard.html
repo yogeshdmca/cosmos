@@ -5,13 +5,38 @@
 {% endblock content_header %}
 
 {% block main_header %}
-	<div class="main-header">
-		<h2>Dashboard</h2>
-	</div>
 {% endblock main_header %}
 
 {% block content %}
-	<p>Comming Soon...... </p>
+
+	<H2 class="text-success"> <strong>Upcomming and on-going Events...</strong> </H2>
+
+	<hr class="dashed" />
+	<div class="row">
+	{% include 'shared/events.html'%}
+	</div>
+
+	<H2 class="text-warning"> <strong>Birthday and Anniversary reminder</strong> </H2>
+
+	<hr class="dashed" />
+	<div class="row">
+		{% for birthday in birthdays %}
+			{% include 'shared/birthday_reminder.html' %}
+		{% endfor %}
+
+		{% for anniversary in anniversaries %}
+			{% include 'shared/aviversaries.html'%}
+		{% endfor %}
+	</div>
+
+	<H2>Upcomming Birthday and Anniversary reminder</H2>
+	<hr class="dashed" />
+	<div class="row">
+	{% for upcomming in upcomming_bdays %}
+		{% include 'shared/birthdays_upcomming.html'%}
+	{% endfor %}
+	</div>
+
 
 {% endblock %}
 

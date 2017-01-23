@@ -1,0 +1,10 @@
+db/
+.idea/
+emails/
+media/
+*.pyc
+subl/
+collected_static/
+*.db
+celerybeat-schedule
+*__pycache__*

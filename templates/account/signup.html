@@ -9,10 +9,26 @@
 		<div class="inner-page">
 			{% include 'includes/logo.html' %}
 			<h1>{% trans "New Registration" %}</h1>
-			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>{% endblocktrans %}</p>
 
 			{% include 'shared/form_errors.html' %}
-			{% include 'includes/signup_box.html' %}
+				<div class="register-box center-block">
+					<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+					  {% csrf_token %}
+					  <p class="title">Create Your Account</p>
+						{{form.username}}
+						{{form.email}}
+						{{form.password1}}
+						{{form.password2}}
+
+						<button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-check-circle"></i> Create Account</button>
+					 
+					  {% if redirect_field_value %}
+					  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					  {% endif %}
+					</form>
+				</div>
+
 		</div>
 </div>
 <script type="text/javascript">

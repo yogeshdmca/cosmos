@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row">
+
+<div class="col-md-8">
+    <section class="widget">
+        <header>
+            <h4><i class="fa fa-user"></i>Create New Profile</h4>
+        </header>
+        <div class="body">
+            <form class="form-horizontal form-label-left"
+                  novalidate="novalidate"
+                  method="post" action="."
+                  enctype="multipart/form-data"
+                  >
+                  {% csrf_token %}
+
+                <fieldset class="mt-sm">
+                    <legend>vehicle Details With Vehicle number and Sticker number</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="first-name">Sticker number<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                            {{form.serial_number|add_class:"form-control"}}
+                            <span class="label label-important">{{form.serial_number.errors}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="first-name">Vehicle number<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                        {{form.vehicle_number|add_class:"form-control"}}
+                            <span class="label label-important">{{form.vehicle_number.errors}}</span>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-4">
+                            <button type="submit" class="btn btn-primary">Save &amp; and continue</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+</div>
+
+{% endblock content %}
+
+
+{% block EXTRAJS%}
+
+<script src="/static/lib/select2/select2.min.js"></script>
+<script src="/static/lib/moment/moment.js"></script>
+<script src="/static/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/lib/jquery.maskedinput/dist/jquery.maskedinput.min.js"></script>
+<script type="text/javascript">
+    $("#id_serial_number").mask("a999")
+    $("#id_vehicle_number").mask("aa-99-aa-9999")
+    
+</script>
+{% endblock%}

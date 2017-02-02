@@ -3,6 +3,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 # from django.contrib.auth.models import User
 from django.conf import settings 
+from cloudinary.models import CloudinaryField
 
 BLOCK = (
         ('a','A'),
@@ -11,11 +12,15 @@ BLOCK = (
         ('d','D'),
     )
 
-LEAVING_TYPE = (
+RESIDENT_TYPE = (
         ('own', "Home owner"),
+        ('spouse', "Wife"),
+        ('son', "Son"),
+        ('daughter', "Daughter"),
+        ('father', "Father"),
+        ('mother', "Mother"),
         ('faimily', "My Faimily member"),
-        ('rent', "rented"),
-        ('pg', "I am Leaving here paying guest"),
+        ('rent', "Rented Member"),
     )
 
 
@@ -44,13 +49,14 @@ class UserProfile(models.Model):
     flat_number = models.ForeignKey(FlatNumber,related_name = 'profiles')
     parent = models.ForeignKey('self', null=True, blank=True, related_name='chields')
     user = models.OneToOneField(settings.AUTH_USER_MODEL,related_name = 'profile')
-    leaving_type = models.CharField(max_length = 40, choices = LEAVING_TYPE)
+    leaving_type = models.CharField("Resident Type",max_length = 40, choices = RESIDENT_TYPE)
     name = models.CharField("Full Name", max_length = 200)
     mobile = models.CharField("Mobile Number", max_length = 15)
-    permanent_address = models.CharField("Permanent address", max_length = 2000)
-    dob = models.DateField("Date of birth")
+    permanent_address = models.CharField("Permanent address. if have?", max_length = 2000,null=True, blank=True)
+    dob = models.DateField("Date of birth",null=True, blank=True)
     doa = models.DateField("Date of Anniversary")
     job_category = models.ForeignKey(JobCategory, related_name = 'profiles')
+    image = CloudinaryField('Photo',null=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -67,7 +73,7 @@ class VehicleInfomation(models.Model):
     amount = models.FloatField("Amount collected", default=0.0)
 
     def get_flat_vehicle_names(self):
-        return ", ".join([name.name for name in self.flat.profiles.all()])
+        return ", ".join([name.name for name in self.flat.profiles.filter(leaving_type__in=['own','rent'])])
     
     def __str__(self):
         return self.vehicle_number
@@ -78,3 +84,14 @@ class VehicleInfomation(models.Model):
             return 'car'
         else:
             return 'bike'
+
+
+class Event(models.Model):
+    title = models.CharField(max_length = 200)
+    details = models.CharField(max_length = 20)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='events')
+    date = models.DateTimeField("Date of birth")
+    image = CloudinaryField('Event Image')
+    
+    def __str__(self):
+        return self.title

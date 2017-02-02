@@ -1,20 +1,27 @@
 from profile.models import UserProfile, FlatNumber
-from django.forms import ModelForm, Select, ChoiceField
+from django.forms import ModelForm
 from django import forms
-from django.utils.encoding import python_2_unicode_compatible
-from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
-from django.contrib.admin.widgets import AdminDateWidget
-from django.template import Context
-from django.conf import settings
-from django.core.mail import send_mail
-from django.utils import timezone
 
-class UserProfileForm(ModelForm):
+class CreateProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields= ['leaving_type','name','mobile','permanent_address','dob','doa','job_category']
-        widgets= {
-      'doa':forms.DateInput(attrs={'class':'datepicker'}),
-      'dob':forms.DateInput(attrs={'class':'datepicker'}),
-    }
+        fields = [
+                'flat_number','leaving_type','name','mobile',
+                'permanent_address','dob','doa','job_category','image'
+            ]
+    def __init__(self, *args, **kwargs):
+        super(CreateProfileForm, self).__init__(*args, **kwargs)
+        self.fields['flat_number'].queryset = FlatNumber.objects.filter(profiles__isnull=True)
+
+
+
+class UpdateProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = [
+                'flat_number','leaving_type','name','mobile',
+                'permanent_address','dob','doa','job_category','image'
+            ]
+    def __init__(self, *args, **kwargs):
+        super(UpdateProfileForm, self).__init__(*args, **kwargs)
+        #self.fields['flat_number'].queryset = FlatNumber.objects.filter(profiles__isnull=True)

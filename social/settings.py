@@ -89,16 +89,10 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'OPTIONS': {
+            'min_length': 6,
+        }
     },
 ]
 
@@ -112,10 +106,10 @@ TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
-USE_L10N = True
-
-USE_TZ = True
-
+#USE_L10N = True
+DATE_INPUT_FORMATS = [
+    '%d/%m/%Y',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -137,6 +131,7 @@ INSTALLED_APPS += [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'cloudinary'
     #'allauth.socialaccount.providers.google',
 ]
 SITE_ID = 1
@@ -154,13 +149,19 @@ LOGIN_REDIRECT_URL = reverse_lazy('home-redirect')
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cosmos',
-        'USER': 'cosmos',
-        'PASSWORD': 'cosmos@123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'cosmos',
+#         'USER': 'cosmos',
+#         'PASSWORD': 'cosmos@123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+CLOUDINARY = {
+  'cloud_name': 'djangowork',  
+  'api_key': '313876635457292',  
+  'api_secret': 'SQEk5PFnuFELoY-54WT8zuGqbBQ',  
 }

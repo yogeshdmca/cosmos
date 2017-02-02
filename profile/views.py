@@ -3,26 +3,15 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse,reverse_lazy
 from django.views import View
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
-from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
-
-from profile.models import FlatNumber, UserProfile
-from django import forms
-from .forms import UserProfileForm
-from .models import VehicleInfomation
-from allauth.account.forms import SignupForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from .forms import CreateProfileForm,UpdateProfileForm
+from .models import VehicleInfomation, FlatNumber, UserProfile
 
-
-class VehicleInfomationView(ListView):
-    """docstring for VehicleInfomationView"""
-    template_name = "profile/vehicle_search.html"
-    model = VehicleInfomation
-
-        
 
 class UserHomeRedirectView(RedirectView):
 
@@ -37,89 +26,64 @@ class UserHomeRedirectView(RedirectView):
         return super(UserHomeRedirectView, self).get(*args, **kwargs)
 
 
-
-class VehicleCreateView(CreateView):
-    template_name = 'profile/vehicle_create.html'
-    model = VehicleInfomation
-    fields = ['flat','serial_number','vehicle_number','amount']
-    success_url = reverse_lazy('vehicle-search')
-    def form_valid(self, form):
-        #import pdb;pdb.set_trace()
-        vehicle = form.save(commit=False)
-        vehicle.user = self.request.user
-        vehicle.save()
-        #return vehicle
-        return super(VehicleCreateView, self).form_valid(form)
-
-
 class NewProfile(CreateView):
-    template_name = 'profile/new_profile.html'
+    template_name = 'profile/create.html'
     model = UserProfile
-    fields = [
-        'flat_number','leaving_type','name','mobile',
-        'permanent_address','dob','doa','job_category',
-    ]
-    widgets= {
-      'doa':forms.DateInput(attrs={'class':'datepicker'}),
-      'dob':forms.DateInput(attrs={'class':'datepicker'}),
-    }
     success_url = reverse_lazy('user-dashboard')
-    
-    def form_valid(self, form):
-        #import pdb;pdb.set_trace()
-        self.new_user = form.save(commit=False)
-        self.new_user.user = self.request.user
-        self.new_user.save()
-        return super(NewProfile, self).form_valid(form)
-        
+    form_class = CreateProfileForm
 
-class Profile(TemplateView):
-    """docstring for TemplateView"""
-    template_name = "profile/profile.html"
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        return super(NewProfile, self).form_valid(form)
+
+class EditProfile(LoginRequiredMixin,UpdateView):
+    template_name = 'profile/create.html'
+    model = UserProfile
+    success_url = reverse_lazy('user-dashboard')
+    form_class = UpdateProfileForm
 
 
 class dashboard(LoginRequiredMixin, View):
     template_name = 'profile/deshboard.html'
     def get(self, request, *args, **kwargs):
-        user = request.user.profile
-        month = date.today().month
-        day = date.today().day
-        birthdays = UserProfile.objects.filter(dob__month=month,dob__day=day)
-        upcomming_bdays = UserProfile.objects.filter(dob__month=month,dob__day__in=range(day+1,day+5))
-        anniversaries = UserProfile.objects.filter(doa__month=month,doa__day=day)
+        profile = request.user.profile
+
+        faimily_members = UserProfile.objects.filter(flat_number=profile.flat_number)
 
         ctx = {
-            'birthdays':birthdays,
-            'upcomming_bdays':upcomming_bdays,
-            'anniversaries':anniversaries,
-
+            'faimily_members':faimily_members,
         }
+
         return render(request, self.template_name,ctx)
 
-class UserLsiting(ListView):
-    template_name = 'profile/users_listing.html'
+
+class UserLsiting(LoginRequiredMixin,ListView):
+    template_name = 'profile/search.html'
     model = UserProfile
     
+class VehicleInfomationView(LoginRequiredMixin,ListView):
+    """docstring for VehicleInfomationView"""
+    template_name = "vehicle/search.html"
+    model = VehicleInfomation
+    
 
-class AddUser(LoginRequiredMixin, View):
-    template_name = 'profile/add_new_user.html'
-    def get(self, request, *args, **kwargs):
-        user_form = SignupForm()
-        profile_form = UserProfileForm()
-        return render(request, self.template_name, {'user_form':user_form,
-            'profile_form':profile_form})
+class VehicleCreateView(LoginRequiredMixin,CreateView):
+    template_name = 'vehicle/create.html'
+    model = VehicleInfomation
+    fields = ['serial_number','vehicle_number',]
+    success_url = reverse_lazy('vehicle-search')
 
-    def post(self, request, *args, **kwargs):
-        user_form = SignupForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(request)
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            user.is_active = True
-            user.save()
-            return HttpResponseRedirect(reverse('users-listing'))
-        return render(request, self.template_name, {'user_form':user_form,
-            'profile_form':profile_form})
+    def form_valid(self, form):
+        vehicle = form.save(commit=False)
+        vehicle.flat = self.request.user.profile.flat_number
+        vehicle.added_by = self.request.user
+        vehicle.save()
+        return super(VehicleCreateView, self).form_valid(form)
 
+class VehicleEditView(LoginRequiredMixin,UpdateView):
+    template_name = 'vehicle/create.html'
+    model = VehicleInfomation
+    fields = ['serial_number','vehicle_number']
+    success_url = reverse_lazy('user-dashboard')

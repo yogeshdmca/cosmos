@@ -1,72 +1,65 @@
-<div class="top-bar navbar-fixed-top">
-<div class="container">
-	<div class="clearfix">
-		<a href="javascript:void(0)" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
-		<!-- logo -->
-		<div class="pull-left left logo">
-			<h1 class="sr-only">Cosmos City Group</h1>
-		</div>
-		<!-- end logo -->
-		<div class="pull-right right">
-			<div class="top-bar-right">
-				<button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-user"></i> {{request.user.profile}}</button>
-				<!-- <button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa fa-volume-up"></i></button> -->
-			</div>
-			<!-- end top-bar-right -->
-		</div>
-	</div>
-</div>
-<!-- /container -->
-</div>
+<header class="page-header">
+    <div class="navbar">
+        <ul class="nav navbar-nav navbar-right pull-right">
+            <li class="visible-phone-landscape">
+            <a href="{% url 'account_logout'%}" class="link">
+                <i class="glyphicon glyphicon-off"></i>
+                    Logout
+                </a>
+            </li>
 
+            <li class="hidden-xs dropdown">
+                <a href="#" title="Account" id="account"
+                   class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user"></i>
+                </a>
 
-<!-- <div class="top-bar navbar-fixed-top">
-<div class="container">
-<div class="clearfix">
-	<a href="#" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
-	<div class="pull-left left logo">
-		<a href="#">
-		</a>
-		<h1 class="sr-only">Cosmos City Group</h1>
-	</div>
-	<div class="pull-right right">
-		<div class="top-bar-right">
-			<a href="{% url 'account_logout' %}"><button type="button" id="start-tour" class="btn btn-link">Logout</button></a>
+                <ul id="account-menu" class="dropdown-menu account" role="menu">
+                    <li role="presentation" class="account-picture">
+                        <img src="/static/dashbord/img/2.png" alt="">
+                        {{request.user.username}}
+                    </li>
+                    <li role="presentation">
+                        <a href="" class="link">
+                            <i class="fa fa-user"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="{% url 'account_logout'%}" class="link">
+                            <i class="glyphicon glyphicon-off"></i>
+                            Logout
+                        </a>
+                    </li>
 
-			<div class="logged-user">
-				<div class="btn-group">
-					<a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-						<img src="assets/img/user-avatar.png" alt="User Avatar" />
-						<span class="name">{{request.user.username}}</span> <span class="caret"></span>
-					</a>
+                    <li role="presentation">
+                        <a href="#" class="link">
+                            <i class="fa fa-inbox"></i>
+                            Suports
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href="#">
-								<i class="fa fa-user"></i>
-								<span class="text">Profile</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="fa fa-cog"></i>
-								<span class="text">Settings</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="fa fa-power-off"></i>
-								<span class="text">Logout</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-		
-	</div>
-</div>
-</div>
-</div>
- -->
+            <li class="visible-xs">
+                <a href="#"
+                   class="btn-navbar"
+                   data-toggle="collapse"
+                   data-target=".sidebar"
+                   title="">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>
+            <li class="hidden-xs"><a href="{% url 'account_logout'%}"><i class="glyphicon glyphicon-off"></i></a></li>
+        </ul>
+
+        <div class="notifications pull-right">
+            <div class="alert pull-right">
+                <a href="#" class="close ml-xs" data-dismiss="alert">&times;</a>
+                <i class="fa fa-info-circle mr-xs"></i> Website time {% now "jS F Y H:i" %}
+            </div>
+        </div>
+
+    </div>
+</header>

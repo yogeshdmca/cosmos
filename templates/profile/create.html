@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row">
+
+<div class="col-md-8">
+    <section class="widget">
+        <header>
+            <h4><i class="fa fa-user"></i>Create New Profile</h4>
+        </header>
+        <div class="body">
+            <form id="profile-form" class="form-horizontal form-label-left"
+                  novalidate="novalidate"
+                  method="post" action="."
+                  enctype="multipart/form-data"
+                  >
+                  {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="text-align-center">
+                            <img class="img-circle" src="/static/img/3.png" alt="64x64" style="height: 112px;">
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <h3 class="mt-sm mb-xs">Dear New Member!!</h3>
+                        <address>
+                            <abbr title="Work email">e-mail:</abbr> <a href="mailto:{{user.email}}">{{user.email}}</a><br>
+                            
+                        </address>
+                    </div>
+                </div>
+                <fieldset class="mt-sm">
+                    <legend>Residential Details</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="first-name">You Flat number<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                        {{form.flat_number|add_class:"form-control"|attr:"required:required"}}
+                        <span class="help-block">If you not able to find your flat here, please ping to : 9039504446(yogesh)</span>
+                        <span class="label label-important">{{form.flat_number.errors}}</span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="first-name">Type of Residence<span class="required">*</span></label>
+                        <div class="col-sm-8">
+
+                        {{form.leaving_type|add_class:"form-control"|attr:"required:required"}}
+                        <span class="label label-important">{{form.leaving_type.errors}}</span>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="first-name">First Name</label>
+                        <div class="col-sm-8">
+
+                        {{form.permanent_address|add_class:"form-control"}}
+                        <span class="label label-important">{{form.permanent_address.errors}}</span>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+                <fieldset>
+                    <legend class="section">Personal Info</legend>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="first-name">Your Full Name <span class="required">*</span></label>
+                        <div class="col-sm-8">
+
+                        {{form.name|add_class:"form-control"|attr:"required:required"}}
+                        <span class="label label-important">{{form.name.errors}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="last-name">Mobile Number<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                        {{form.mobile|add_class:"form-control"|attr:"required:required"}}
+                        <span class="label label-important">{{form.mobile.errors}}</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="last-name">Date of Birth<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                        <div class='input-group date' id='date_dob'>
+                            {{form.dob|add_class:"form-control date"|attr:"required:required"}}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="last-name">Date of Aniversary</label>
+                        <div class="col-sm-8">
+                        
+                        <div class='input-group date' id='date_dob'>
+                            {{form.doa|add_class:"form-control date"}}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="last-name">Job Category<span class="required">*</span></label>
+                        <div class="col-sm-8">
+                        {{form.job_category|add_class:"form-control"|attr:"required:required"}}
+                        <span class="label label-important">{{form.job_category.errors}}</span>
+
+                      </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="section">Your Photo</legend>
+                    <div class="form-group">
+                        <label id="email-label" for="email" class="control-label col-sm-4">Your Pic</label>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="input-group">
+                              {{form.image|add_class:"form-control input-transparent"}}
+                              <span class="input-group-addon">
+                                    <i class="fa fa-camera"></i>
+                                </span>
+                            </div>
+                            <span class="label label-important">{{form.image.errors}}</span>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-4">
+                            <button type="submit" class="btn btn-primary">Save &amp; and continue</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+</div>
+
+{% endblock content %}
+
+
+{% block EXTRAJS%}
+
+<script src="/static/lib/select2/select2.min.js"></script>
+<script src="/static/lib/moment/moment.js"></script>
+<script src="/static/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/lib/jquery.maskedinput/dist/jquery.maskedinput.min.js"></script>
+<script type="text/javascript">
+    $('select').select2();
+    $('.date').datetimepicker({
+        viewMode: 'years',
+        format: 'DD/MM/YYYY',
+    });
+    $("#id_mobile").mask("999-999-9999")
+    
+</script>
+{% endblock%}

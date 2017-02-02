@@ -1,0 +1,43 @@
+{% extends "nolayout.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "New Registration" %}{% endblock %}
+
+{% block content %}
+<div class="wrapper full-page-wrapper page-auth page-register text-center">
+		<div class="inner-page">
+			{% include 'includes/logo.html' %}
+			<h1>{% trans "New Registration" %}</h1>
+			<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>{% endblocktrans %}</p>
+
+			{% include 'shared/form_errors.html' %}
+				<div class="register-box center-block">
+					<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+					  {% csrf_token %}
+					  <p class="title">Create Your Account</p>
+						{{form.username}}
+						{{form.email}}
+						{{form.password1}}
+						{{form.password2}}
+
+						<button type="submit" class="btn btn-custom-primary btn-lg btn-block btn-auth"><i class="fa fa-check-circle"></i> Create Account</button>
+					 
+					  {% if redirect_field_value %}
+					  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+					  {% endif %}
+					</form>
+				</div>
+
+		</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#id_username').attr('class','form-control');
+    $('#id_email').attr('class','form-control');
+    $('#id_password1').attr('class','form-control');
+    $('#id_password2').attr('class','form-control');
+  });
+</script>
+
+{% endblock %}

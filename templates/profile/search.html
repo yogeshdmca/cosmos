@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="row">
+<div class="col-md-12">
+<section class="widget">
+    <header>
+        <h4>
+            Table <span class="fw-semi-bold">Styles</span>
+        </h4>
+    </header>
+    <div class="body">
+        <table id="profile-search" class="table table-striped table-bordered widget-table-overflow">
+            <thead>
+            <tr>
+                <th class="hidden-xs">#</th>
+                <th>Name</th>
+                <th>Resident Type</th>
+                <th>Address</th>
+                <th>Mobile</th>
+                <th>Work Area</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for profile in object_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="javascript:void(0)">{{profile.name}}</a></td>
+                        <td>{{profile.leaving_type}}</td>
+                        <td>
+                            <p class="no-margin"><small>
+                                <span class="fw-semi-bold">Block:</span>
+                                <span class="text-muted">&nbsp; {{profile.flat_number.get_block}}</span>
+                            </small></p>
+
+                            <p><small>
+                                <span class="fw-semi-bold">Flat Number:</span>
+                                <span class="text-muted">&nbsp; {{profile.flat_number.number}}</span>
+                            </small></p>
+                        </td>
+                        <td>{{profile.mobile}}</td>
+                        <td>{{profile.job_category}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+</div>
+</div>
+
+{% endblock content %}
+
+{% block EXTRAJS%}
+<script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#profile-search').DataTable();
+});
+</script>
+{% endblock%}

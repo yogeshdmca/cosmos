@@ -1,0 +1,41 @@
+<section class="widget">
+    <header>
+        <h4>
+            Members associated with you|| <small>If reords dispay here is not a faimily member , please contact to whatsapp: 9039504446</small>
+        </h4>
+        <div class="widget-controls">
+            <a data-widgster="expand" data-url ="http://127.0.0.1:8000/user/dashboard/" title="Add New Member" href="#" data-toggle="modal" data-target="#createFaimilyMember" ><i class="glyphicon glyphicon-plus"></i></a>
+        </div>
+    </header>
+    <div class="widget-table-overflow">
+        <table class="table table-striped table-lg mt-sm mb-0 sources-table">
+            <thead>
+            <tr>
+                <th>Resident Type</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th class="hidden-xs">Job Category</th>
+                <th class="hidden-xs">Date of Birth</th>
+                <th class="hidden-xs">Flat Numer</th>
+                <th class="hidden-xs">Action</th>
+                
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for faimily in faimily_members %}
+                <tr>
+                    <td><span class="label label-important">{{faimily.leaving_type}}</span></td>
+                    <td>{{faimily.name}}</td>
+                    <td><strong class="color-green">{{faimily.user.email}}</strong></td>
+                    <td class="hidden-xs">{{faimily.job_category}}</td>
+                    <td class="hidden-xs">{{faimily.dob}}</td>
+                    <td class="hidden-xs">{{faimily.flat_number.get_flat_number}}</td>
+                    <td><a title="Add New Member" href="{% url 'edit-profile' faimily.id %}" ><i class="glyphicon glyphicon-pencil"></i></a></td>
+                    
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>

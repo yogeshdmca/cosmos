@@ -1,0 +1,75 @@
+<section class="widget widget-tabs">
+    <header>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#birthday_today" data-toggle="tab">Today</a>
+            </li>
+            <li>
+                <a href="#bithday_upcomming" data-toggle="tab">Upcomming</a>
+            </li>
+            <li>
+                <a href="#aniversary" data-toggle="tab">Aniversary</a>
+            </li>
+        </ul>
+    </header>
+    <div class="body tab-content">
+        <div id="birthday_today" class="tab-pane active clearfix">
+            <h5 class="tab-header"><span class="label label-primary"><i class="fa fa-facebook"></i></span>Today's Birthday and Aniversary </h5>
+            <ul class="news-list">
+                {% for bday in birthdays %}
+                    <li>
+                        <img src="/static/img/1.png" alt="" class="pull-left img-circle"/>
+                        <div class="news-item-info">
+                            <div class="name">Birthday of <a href="#">{{bday.name}}</a></div>
+                            <div class="position">Cosmos {{bday.flat_number.get_flat_number}}</div>
+                            <div class="time">Mob.{{bday.mobile}}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+                {% for aniv in anniversaries %}
+                    <li>
+                        <img src="/static/img/1.png" alt="" class="pull-left img-circle"/>
+                        <div class="news-item-info">
+                            <div class="name"> Aniversary of <a href="#">{{aniv.name}}</a></div>
+                            <div class="position">Cosmos {{aniv.flat_number.get_flat_number}}</div>
+                            <div class="time">Mob.{{aniv.mobile}}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        <div id="bithday_upcomming" class="tab-pane">
+            <h5 class="tab-header"><span class="label label-primary"><i class="fa fa-facebook"></i></span>Upcomming Birthday</h5>
+            <ul class="news-list">
+                {% for bday in upcomming_bdays %}
+                    <li>
+                        <img src="/static/img/1.png" alt="" class="pull-left img-circle"/>
+                        <div class="news-item-info">
+                            <div class="name"><a href="#">{{bday.name}}</a></div>
+                            <div class="position">Cosmos {{bday.flat_number.get_flat_number}}</div>
+                            <div class="time">Birthday Date:{{bday.dob}}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="aniversary" class="tab-pane">
+            <h5 class="tab-header"><span class="label label-primary"><i class="fa fa-facebook"></i></span> Last logged-in users</h5>
+            <ul class="news-list">
+                {% for aniv in upcomming_anniversaries %}
+                    <li>
+                        <img src="/static/img/1.png" alt="" class="pull-left img-circle"/>
+                        <div class="news-item-info">
+                            <div class="name"><a href="#">{{aniv.name}}</a></div>
+                            <div class="position">Cosmos {{aniv.flat_number.get_flat_number}}</div>
+                            <div class="time">Anivarsary Date:{{aniv.dob}}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+</section>

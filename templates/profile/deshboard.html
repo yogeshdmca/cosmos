@@ -1,13 +1,53 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block content_header %}
-	{% include 'shared/general_alerts.html' %}
-{% endblock content_header %}
-
-{% block main_header %}
-{% endblock main_header %}
-
+{% load tags %}
 {% block content %}
+<div class="row">
+    <div class="col-lg-8">
+    	{% include 'includes/my_faimily_members.html' %}
+    	{% include 'includes/my_vehicle_listing.html' %}
+    </div>
+
+    <div class="col-lg-4">
+    	{% events %}
+    	{% birthday_aniversary_today %}
+    </div>
+</div>
+{% include 'shared/model_new_faimily_member.html' %}
+
+{% endblock %}
+
+
+
+
+
+{% block EXTRAJS %}
+
+<script type="text/javascript">
+var $modal = $('.modal');
+
+// Show loader & then get content when modal is shown
+$modal.on('show.bs.modal', function(e) {
+	debugger
+  var url = $(e.relatedTarget).data('url');
+  $(this)
+    .addClass('modal-scrollfix')
+    .find('.modal-body')
+    .html('loading...')
+    .load(url, function() {
+      // Use Bootstrap's built-in function to fix scrolling (to no avail)
+      $modal
+        .removeClass('modal-scrollfix')
+        .modal('handleUpdate');
+    });
+});
+</script>
+{% endblock %}
+
+
+
+
+{% block content1 %}
 
 	<H2 class="text-success"> <strong>Upcomming and on-going Events...</strong> </H2>
 
@@ -40,7 +80,7 @@
 
 {% endblock %}
 
-{% block js %}
+{% block js1 %}
 	<script src="{% static 'assets/js/plugins/stat/jquery.easypiechart.min.js' %}"></script>
 	<script src="{% static 'assets/js/plugins/raphael/raphael-2.1.0.min.js' %}"></script>
 	<script src="{% static 'assets/js/plugins/stat/flot/jquery.flot.min.js' %}"></script>

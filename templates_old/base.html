@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<head>
+	<title>Dashboard | KingAdmin - Admin Dashboard</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="KingAdmin - Bootstrap Admin Dashboard Theme">
+	<meta name="author" content="The Develovers">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- CSS -->
+	<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'assets/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'assets/css/main.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'assets/css/my-custom-styles.css' %}" rel="stylesheet" type="text/css">
+	<!--[if lte IE 9]>
+		<link href="assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
+		<link href="assets/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
+
+
+	<![endif]-->
+
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/kingadmin-favicon144x144.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/kingadmin-favicon114x114.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/kingadmin-favicon72x72.png">
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/ico/kingadmin-favicon57x57.png">
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
+
+</head>
+
+
+
+<body class="sidebar-fixed topnav-fixed dashboard">
+	<div id="wrapper" class="wrapper">
+		{% include 'includes/menu.html' %}
+
+		{% include 'includes/sidemenu.html' %}
+	
+
+	<div id="main-content-wrapper" class="content-wrapper ">
+		{% block alerts %}
+		
+		{% endblock alerts %}
+		
+		{% block content_header %}
+			<div class="row"> <!-- removed row class , need to check it when something wrong  -->
+				<div class="col-lg-4 ">
+					<ul class="breadcrumb">
+						{% block breadcrumb_li %}
+						<li><i class="fa fa-home"></i><a href="#">Home</a></li>
+						{% endblock breadcrumb_li %}
+					</ul>
+				</div>
+
+				<div class="col-lg-8">
+					<div class="top-content">
+						<ul class="list-inline quick-access">
+							{% block quick_access %}
+								{% include 'shared/quick_access.html'%}
+							{% endblock quick_access %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		{% endblock content_header %}
+
+		<div class="content">
+			{% block main_header %}
+
+			{% endblock main_header %}
+			<div class="main-content">
+				{% block content %}
+				
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+		{% include 'includes/scripts.html' %}
+		{% block js %}
+		{% endblock js%}
+</body>
+</html>

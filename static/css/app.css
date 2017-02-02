@@ -1,0 +1,20 @@
+.dataTables_length select {
+	color: black;
+}
+.dataTables_length{
+	float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+.dataTables_wrapper {
+    position: relative;
+    clear: both;
+    zoom: 1;
+}
+
+.dataTables_filter label {
+	font-weight: 800;
+	color:black;
+}

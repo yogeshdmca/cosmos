@@ -25,3 +25,10 @@ class UpdateProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(UpdateProfileForm, self).__init__(*args, **kwargs)
         #self.fields['flat_number'].queryset = FlatNumber.objects.filter(profiles__isnull=True)
+
+
+class CreateProfileFormFaimily(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['leaving_type','name','mobile','dob','doa','job_category']
+

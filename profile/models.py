@@ -54,7 +54,7 @@ class UserProfile(models.Model):
     mobile = models.CharField("Mobile Number", max_length = 15)
     permanent_address = models.CharField("Permanent address. if have?", max_length = 2000,null=True, blank=True)
     dob = models.DateField("Date of birth",null=True, blank=True)
-    doa = models.DateField("Date of Anniversary")
+    doa = models.DateField("Date of Anniversary",null=True, blank=True)
     job_category = models.ForeignKey(JobCategory, related_name = 'profiles')
     image = CloudinaryField('Photo',null=True, blank=True)
     

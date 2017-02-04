@@ -28,73 +28,49 @@ var $modal = $('.modal');
 
 // Show loader & then get content when modal is shown
 $modal.on('show.bs.modal', function(e) {
-	debugger
   var url = $(e.relatedTarget).data('url');
   $(this)
     .addClass('modal-scrollfix')
     .find('.modal-body')
     .html('loading...')
     .load(url, function() {
-      // Use Bootstrap's built-in function to fix scrolling (to no avail)
       $modal
         .removeClass('modal-scrollfix')
         .modal('handleUpdate');
     });
 });
 </script>
-{% endblock %}
 
+<script type="text/javascript">
 
+$(document).on("click","#new-faimily-profile", function(){
+	var postData = $("#create-faimily-form").serializeArray();
+    var formURL = $("#create-faimily-form").attr("action");
+    debugger
+    $.ajax({
+        url : formURL,
+        type: "POST",
+        data : postData,
+        success:function(data, textStatus, jqXHR){
+        	debugger
+        	if (data.sucess == 'true'){
+        		window.location.reload()
+        	}else{
+        		$("#createFaimilyMember")
+        		.find('.modal-body')
+        		.html(data)
+        	}
+            
+            //$('#createFaimilyMember').modal('toggle');
+        },
+        error: function(jqXHR, textStatus, errorThrown) 
+        {
+        	console.log(jqXHR,textStatus,errorThrown)
+        	console.log("on error")
+        }
+    });
 
+})	
 
-{% block content1 %}
-
-	<H2 class="text-success"> <strong>Upcomming and on-going Events...</strong> </H2>
-
-	<hr class="dashed" />
-	<div class="row">
-	{% include 'shared/events.html'%}
-	</div>
-
-	<H2 class="text-warning"> <strong>Birthday and Anniversary reminder</strong> </H2>
-
-	<hr class="dashed" />
-	<div class="row">
-		{% for birthday in birthdays %}
-			{% include 'shared/birthday_reminder.html' %}
-		{% endfor %}
-
-		{% for anniversary in anniversaries %}
-			{% include 'shared/aviversaries.html'%}
-		{% endfor %}
-	</div>
-
-	<H2>Upcomming Birthday and Anniversary reminder</H2>
-	<hr class="dashed" />
-	<div class="row">
-	{% for upcomming in upcomming_bdays %}
-		{% include 'shared/birthdays_upcomming.html'%}
-	{% endfor %}
-	</div>
-
-
-{% endblock %}
-
-{% block js1 %}
-	<script src="{% static 'assets/js/plugins/stat/jquery.easypiechart.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/raphael/raphael-2.1.0.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/stat/flot/jquery.flot.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/stat/flot/jquery.flot.resize.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/stat/flot/jquery.flot.time.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/stat/flot/jquery.flot.pie.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/datatable/jquery.dataTables.min.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/datatable/dataTables.bootstrap.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/jquery-mapael/jquery.mapael.js' %}"></script>
-	<script src="{% static 'assets/js/plugins/raphael/maps/usa_states.js' %}"></script>
-	<script src="{% static 'assets/js/king-chart-stat.js' %}"></script>
-	<script src="{% static 'assets/js/king-table.js' %}"></script>
-	<script src="{% static 'assets/js/king-components.js' %}"></script>
-
+</script>
 {% endblock %}

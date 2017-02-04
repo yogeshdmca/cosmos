@@ -44,15 +44,13 @@
                     <span class="small-circle"><i class="fa fa-caret-right"></i></span>
                     <small>Sign In</small>
                 </button>
-                <a class="forgot" href="{% url 'account_reset_password' %}">Forgot Username or Password?</a>
+                
+                <a class="forgot" href="{{ signup_url }}">FIRST TIME USER?, Create new account</a>
+                <!-- <a  href="{% url 'account_reset_password' %}">Forgot Username or Password?</a> -->
+
             </div>
         </form>
     </div>
-<!--     <footer>
-        <div class="facebook-login">
-            <a href="index-2.html"><span><i class="fa fa-facebook-square fa-lg"></i> LogIn with Facebook</span></a>
-        </div>
-    </footer> -->
 </section>
 
 {% endblock %}

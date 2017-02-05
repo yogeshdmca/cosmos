@@ -64,6 +64,12 @@ class UserProfile(models.Model):
     def get_vehicle_information(self):
         return self.flat_number.vehicles.all()
 
+    def ge_resident_type(self):
+        if self.leaving_type='rent':
+            return "On Rented"
+        else:
+            return "Owner"
+
 
 class VehicleInfomation(models.Model):
     flat = models.ForeignKey(FlatNumber, on_delete = models.CASCADE, related_name = 'vehicles')

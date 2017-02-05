@@ -149,16 +149,16 @@ LOGIN_REDIRECT_URL = reverse_lazy('home-redirect')
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'cosmos',
-#         'USER': 'cosmos',
-#         'PASSWORD': 'cosmos@123',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cosmos',
+        'USER': 'cosmos',
+        'PASSWORD': 'cosmos@123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 CLOUDINARY = {
   'cloud_name': 'djangowork',  

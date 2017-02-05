@@ -73,7 +73,7 @@ class VehicleCreateView(LoginRequiredMixin,CreateView):
     template_name = 'vehicle/create.html'
     model = VehicleInfomation
     fields = ['serial_number','vehicle_number',]
-    success_url = reverse_lazy('vehicle-search')
+    success_url = reverse_lazy('user-dashboard')
 
     def form_valid(self, form):
         vehicle = form.save(commit=False)

@@ -82,8 +82,31 @@ class VehicleCreateView(LoginRequiredMixin,CreateView):
         vehicle.save()
         return super(VehicleCreateView, self).form_valid(form)
 
+class VehicleCreateManagerView(LoginRequiredMixin,CreateView):
+    template_name = 'vehicle/create_manager.html'
+    model = VehicleInfomation
+    fields = ['flat','serial_number','vehicle_number',]
+    success_url = reverse_lazy('vehicle-search')
+
+    def form_valid(self, form):
+        vehicle = form.save(commit=False)
+        #vehicle.flat = self.request.user.profile.flat_number
+        vehicle.added_by = self.request.user
+        vehicle.save()
+        return super(VehicleCreateView, self).form_valid(form)
+
+
+
 class VehicleEditView(LoginRequiredMixin,UpdateView):
     template_name = 'vehicle/create.html'
     model = VehicleInfomation
     fields = ['serial_number','vehicle_number']
     success_url = reverse_lazy('user-dashboard')
+
+
+class VehicleEditManagerView(LoginRequiredMixin,UpdateView):
+    template_name = 'vehicle/create_manager.html'
+    model = VehicleInfomation
+    fields = ['flat','serial_number','vehicle_number']
+    success_url = reverse_lazy('vehicle-search')
+

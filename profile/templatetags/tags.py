@@ -7,11 +7,12 @@ from datetime import datetime, date , timedelta
 @register.inclusion_tag("shared/birthday_aniversary.html" )
 def birthday_aniversary_today():
     month = date.today().month
+    next_month = month < 12 and month+1 or 1
     day = date.today().day
     birthdays = UserProfile.objects.filter(dob__month=month,dob__day=day)
-    upcomming_bdays = UserProfile.objects.filter(dob__month=month,dob__day__in=range(day+1,day+30))
+    upcomming_bdays = UserProfile.objects.filter(dob__month__in=[month, next_month])
     anniversaries = UserProfile.objects.filter(doa__month=month,doa__day=day)
-    upcomming_anniversaries = UserProfile.objects.filter(doa__month=month,doa__day__in=range(day+1,day+30))
+    upcomming_anniversaries = UserProfile.objects.filter(doa__month__in=[month, next_month])
     ctx = {
             'birthdays':birthdays,
             'upcomming_bdays':upcomming_bdays,

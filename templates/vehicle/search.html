@@ -8,8 +8,11 @@
 <section class="widget">
     <header>
         <h4>
-            Table <span class="fw-semi-bold">Styles</span>
+            Vehicle finder, you can search  Vehicle details here<span class="fw-semi-bold">parking sticker provide can add as well by click on plus icon </span>
         </h4>
+        <div class="widget-controls">
+            <a title="Add New Member" href="{% url 'vehicle-create-manager' %}"  ><i class="glyphicon glyphicon-plus"></i></a>
+        </div>
     </header>
     <div class="body">
         <table id="vehicle-search" class="table table-striped table-bordered widget-table-overflow">
@@ -20,7 +23,9 @@
                 <th>Address</th>
                 <th>Sticker Number</th>
                 <th>Vehicle Number</th>
-                <th>Action</th>
+                {% if user.is_staff %}
+                    <th>Action</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -46,7 +51,9 @@
                     <td >
                         {{object.vehicle_number}}
                     </td>
-                    <td><a title="Edit it" href="{% url 'vehicle-edit' object.id %}" ><i class="glyphicon glyphicon-pencil"></i></a></td>
+                    {% if user.is_staff %}
+                        <td><a title="Edit it" href="{% url 'vehicle-edit-manager' object.id %}" ><i class="glyphicon glyphicon-pencil"></i></a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
 

@@ -65,7 +65,7 @@ class UserProfile(models.Model):
         return self.flat_number.vehicles.all()
 
     def ge_resident_type(self):
-        if self.leaving_type='rent':
+        if self.leaving_type=='rent':
             return "On Rented"
         else:
             return "Owner"
